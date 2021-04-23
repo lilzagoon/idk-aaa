@@ -1,6 +1,6 @@
 // line(15, 25, 70, 90);
  
- import ddf.minim.*;
+import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
 import ddf.minim.signals.*;
@@ -9,6 +9,8 @@ import ddf.minim.ugens.*;
 
 Minim minim;
 AudioPlayer player;
+AudioPlayer player2;
+
 AudioBuffer buffer;
 AudioInput ai;
 AudioBuffer ab;
@@ -16,6 +18,9 @@ AudioBuffer ab;
 float lerpedAverage = 0;
 
 float[] lerpedBuffer;
+int[] button = new int [5];
+
+
 
 float x = 0;
 float c = 0;
@@ -31,11 +36,17 @@ void setup()
   colorMode(HSB);
   minim = new Minim(this);
   player = minim.loadFile("crabrave.mp3", width);
-  player.play();
+  player2= minim.loadFile("Etherwood.mp3", width);
+ player.play();
+
   ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
   buffer = player.left;
   ab = ai.mix;
- 
+ button[0] =  400;
+button[1] =  400;
+button[2] =  200;
+button[3] =  50;
+button[4] =  0;
   
    fft = new FFT(width, 44100);
   
@@ -52,6 +63,7 @@ int which = 0;
 void draw()
 {
   
+
   
     fft.window(FFT.HAMMING);
   fft.forward(ab);
@@ -107,10 +119,27 @@ void draw()
   }
 }
 
+void mousePressed()
+{
+  if(mouseY <(button[1] + button[3])){
+   rect(30,30,20,20); 
+   player.pause();
+   player2.play();
 
+  }
+  
+  
+  
+}
 void Mode1()
 {
   background(0);
+  
+  rect(button[0], button[1], button[2], button[3]);
+  
+  
+  
+  
   float halfH = height / 2;
 
   strokeWeight(1);

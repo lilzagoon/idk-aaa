@@ -78,7 +78,7 @@ void draw()
   {
     for (int i = 0; i < buffer.size(); i ++)
     {
-
+      smooth();
       stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
       lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
       float sample = lerpedBuffer[i] * width * 2;    
@@ -139,7 +139,7 @@ void Mode1()
    background(0);
      for (int i = 0; i < buffer.size(); i ++)
   {
-
+  smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -172,7 +172,7 @@ background(0);
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
   {
-
+smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -190,7 +190,7 @@ void Mode3()
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
   {
-
+smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -208,7 +208,7 @@ void Mode4()
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
   {
-
+smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -228,7 +228,7 @@ void Mode5()
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
   {
-
+smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -244,6 +244,23 @@ void Mode5()
 
 
     ellipse(width/ 2, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 - 20, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 - 40, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 - 60, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 - 80, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 - 100, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    
+    ellipse(width/ 2, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 + 20, 256 +20, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 + 40, 256+20, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 + 60, 256+20, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 + 80, 256+20, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    ellipse(width/ 2 + 100, 256+20, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
+    
+     ellipse(200, 150, lerpedAverage * height/2*10, lerpedAverage * height/2*10);
+      ellipse(300, 150, lerpedAverage * height/2*10, lerpedAverage * height/2*10);
+
+
 
     float sum = 0;
     for (int i1 = 0; i1 < buffer.size(); i1 ++)
@@ -265,7 +282,7 @@ void Mode6()
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
   {
-
+smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -305,7 +322,7 @@ void Mode7()
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
   {
-
+smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
@@ -346,6 +363,7 @@ void Mode8()
   background(0);
   for (int i = 0; i < ab.size(); i++)
   {
+    smooth();
     float c = map(i, 0, ab.size(), 0, 255);
     stroke(c, 255, 255);
     float sample = ab.get(i) * halfHeight;
@@ -380,6 +398,8 @@ void Mode9()
   background(0);
   for (int i = 0; i < ab.size(); i++)
   {
+    
+    smooth();
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    

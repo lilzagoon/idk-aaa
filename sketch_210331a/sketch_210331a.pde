@@ -126,23 +126,47 @@ void draw()
   }
 }
 
-void mousePressed()
-{
-  if (mouseY <(button[1] + button[3])) {
-    rect(30, 30, 20, 20); 
-    player.pause();
-    player2.play();
-  }
-}
+//void mousePressed()
+//{
+  //if (mouseY <(button[1] + button[3])) {
+ //   rect(30, 30, 20, 20); 
+  //  player.pause();
+  //  player2.play();
+ // }
+//}
 void Mode1()
 {
-  background(0);
+   background(0);
+     for (int i = 0; i < buffer.size(); i ++)
+  {
 
-  rect(button[0], button[1], button[2], button[3]);
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
+    float sample = lerpedBuffer[i] * width * 2;    
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
 
+ textSize(40);
+ fill(random(255)/20, 255, 255);
+text("M", 20, random(40,45)); 
+ fill(random(255)/20, 255, 255);
+text("U", 50, random(40,45)); 
+ fill(random(255)/20, 255, 255);
+text("S", 75, random(40,45)); 
+ fill(random(255)/20, 255, 255);
+text("I", 95,random(40,45)); 
+ fill(random(255)/20, 255, 255);
+text("C", 105, random(40,45)); 
 
+fill(random(255)/20, 255, 255);
+text("Press 1 through 9 to",30  , 100); 
+text("see each section",30  , 140); 
+  }
 
-
+}
+void Mode2()
+{
+ 
+background(0);
   float halfH = height / 2;
 
   strokeWeight(1);
@@ -158,7 +182,7 @@ void Mode1()
     line(i, height/2 -sample, height/2 +sample, i);
   }
 }
-void Mode2()
+void Mode3()
 {
   background(0);
   float halfH = height / 2;
@@ -174,7 +198,9 @@ void Mode2()
     line(i, height/2 -sample, i, height/2 +sample/2);
   }
 }
-void Mode3()
+
+
+void Mode4()
 {
   background(0);
   float halfH = height / 2;
@@ -194,10 +220,9 @@ void Mode3()
   }
 }
 
-
-void Mode4()
+void Mode5()
 {
-  background(0);
+    background(0);
   float halfH = height / 2;
 
   strokeWeight(1);
@@ -232,7 +257,7 @@ void Mode4()
   }
 }
 
-void Mode5()
+void Mode6()
 {
   background(0);
   float halfH = height / 2;
@@ -271,8 +296,9 @@ void Mode5()
   }
 }
 
-void Mode6()
+void Mode7()
 {
+
   background(0);
   float halfH = height / 2;
 
@@ -306,23 +332,6 @@ void Mode6()
     float average = sum / buffer.size();
     lerpedAverage = lerp(lerpedAverage, average, 0.1f);
   }
-}
-
-void Mode7()
-{
-
-  background(0);
-
-
-  for (int i = 0; i < ab.size(); i++)
-  {
-    float c = map(i, 0, ab.size(), 0, 255);
-    stroke(c, 255, 255);
-    float sample = ab.get(i) * halfHeight;
-  }
-
-  fft.window(FFT.HAMMING);
-  fft.forward(ab);
 }
 
 

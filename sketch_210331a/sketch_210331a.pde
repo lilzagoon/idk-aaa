@@ -18,7 +18,7 @@ AudioBuffer ab;
 float lerpedAverage = 0;
 
 float[] lerpedBuffer;
-int[] button = new int [5];
+int[] button = new int [9];
 
 
 
@@ -117,16 +117,20 @@ void draw()
   {
     Mode8();
   }
+     if (which ==9)
+  {
+    Mode9();
+  }
 }
 
 void mousePressed()
 {
-  if(mouseY <(button[1] + button[3])){
-   rect(30,30,20,20); 
-   player.pause();
-   player2.play();
+  //if(mouseY <(button[1] + button[3])){
+ //  rect(30,30,20,20); 
+  // player.pause();
+  // player2.play();
 
-  }
+ // }
   
   
   
@@ -135,7 +139,7 @@ void Mode1()
 {
   background(0);
   
-  rect(button[0], button[1], button[2], button[3]);
+ // rect(button[0], button[1], button[2], button[3]);
   
   
   
@@ -150,7 +154,9 @@ void Mode1()
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
-    line(i, height/2 -sample, height/2 +sample, i);
+
+
+   line(i, height/2 -sample, height/2 +sample, i);
   }
 }
 void Mode2()
@@ -356,12 +362,62 @@ void Mode8()
   float y = map(lerpedFreq, 900, 2100, height, 0);
   ellipse(100, y, 50, 50);
   }
-
+  
+  void Mode9()
+{
+  background(0);
+  for(int i = 0;i < ab.size(); i++)
+  {
+      stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+      lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
+      float sample = lerpedBuffer[i] * width * 2;    
+      stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+     
+     noStroke();  
+  translate(width/2, height/2);
+  rotate(0.1);
+ fill( random(255)/10, (255), (255), random(10+sample));
+ // star(0, 0, 30-sample/2, 70-sample/2, 6); 
+  star(-256, -256, 30-sample/2, 70-sample/2, 6); 
+  star(-258, -128, 30-sample/2, 70-sample/2, 6); 
+   star(-258, 128, 30-sample/2, 70-sample/2, 6); 
+   star(-258, -192, 30-sample/2, 70-sample/2, 6); 
+  star(-256, 256, 30-sample/2, 70-sample/2, 6); 
+   star(256, -256, 30-sample/2, 70-sample/2, 6); 
+   star(256, 128, 30-sample/2, 70-sample/2, 6); 
+   star(256, -128, 30-sample/2, 70-sample/2, 6); 
+ 
+      
+  
+  
+  
+  
+  //lights();
+ // translate(10+sample,10+sample, 0);
+  //sphere(10-sample);
+  }
+  
+}
+void star(float x, float y, float radius1, float radius2, int npoints) {
+  float angle = TWO_PI / npoints;
+  float halfAngle = angle/2.0;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * radius2;
+    float sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a+halfAngle) * radius1;
+    sy = y + sin(a+halfAngle) * radius1;
+    vertex(sx, sy);
+    endShape(CLOSE);
+  }
+}
+  
 
 void keyPressed()
 {
   // Set the value of which based on which key was pressed
-  if (keyCode >= '0' && keyCode <= '8')
+  if (keyCode >= '0' && keyCode <= '9')
   {
     which = keyCode - '0';
   }

@@ -11,6 +11,7 @@ Minim minim;
 Minim minim2;
 AudioPlayer player;
 AudioPlayer player2;
+static final int FADE = 2500;
 
 AudioBuffer buffer;
 AudioInput ai;
@@ -39,6 +40,7 @@ void setup()
 
   player = minim.loadFile("crabrave.mp3", width);
   player2= minim.loadFile("Etherwood.mp3", width);
+  player.setGain(0.1); 
   player.play();
 
   ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
@@ -66,7 +68,8 @@ float lerpedFreq = 0;
 void draw()
 {
 
-
+  player.play();
+  player.shiftGain(player.getGain(),-30,FADE);
 
   fft.window(FFT.HAMMING);
   fft.forward(ab);
@@ -158,8 +161,9 @@ text("I", 95,random(40,45));
 text("C", 105, random(40,45)); 
 
 fill(random(255)/20, 255, 255);
-text("Press 1 through 9 to",30  , 100); 
-text("see each section",30  , 140); 
+text("Press keys 2 through 9",30  , 100); 
+text("to see each section",30  , 150); 
+text("Warning: it's kinda loud",30  , 200); 
   }
 
 }

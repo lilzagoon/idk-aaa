@@ -1,5 +1,5 @@
 // line(15, 25, 70, 90);
- 
+
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
@@ -8,6 +8,7 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
 Minim minim;
+Minim minim2;
 AudioPlayer player;
 AudioPlayer player2;
 
@@ -32,24 +33,26 @@ FFT fft;
 
 void setup()
 {
-  size(512, 512,P2D);
+  size(512, 512, P2D);
   colorMode(HSB);
   minim = new Minim(this);
+
   player = minim.loadFile("crabrave.mp3", width);
   player2= minim.loadFile("Etherwood.mp3", width);
- player.play();
+  player.play();
 
   ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
   buffer = player.left;
   ab = ai.mix;
- button[0] =  400;
-button[1] =  400;
-button[2] =  200;
-button[3] =  50;
-button[4] =  0;
-  
-   fft = new FFT(width, 44100);
-  
+
+  button[0] =  400;
+  button[1] =  400;
+  button[2] =  200;
+  button[3] =  50;
+  button[4] =  0;
+
+  fft = new FFT(width, 44100);
+
   halfHeight = height/2;
 
   lerpedBuffer = new float[buffer.size()];
@@ -58,19 +61,19 @@ button[4] =  0;
 int which = 0;
 
 
- float lerpedFreq = 0;
- 
+float lerpedFreq = 0;
+
 void draw()
 {
-  
 
-  
-    fft.window(FFT.HAMMING);
+
+
+  fft.window(FFT.HAMMING);
   fft.forward(ab);
   int highestBin =-1;
   float highest = 0;
-  
-  
+
+
   if (which == 0)
   {
     for (int i = 0; i < buffer.size(); i ++)
@@ -108,16 +111,16 @@ void draw()
   {
     Mode6();
   }
-   if (which ==7)
+  if (which ==7)
   {
     Mode7();
   }
-   
-   if (which ==8)
+
+  if (which ==8)
   {
     Mode8();
   }
-     if (which ==9)
+  if (which ==9)
   {
     Mode9();
   }
@@ -125,25 +128,21 @@ void draw()
 
 void mousePressed()
 {
-  //if(mouseY <(button[1] + button[3])){
- //  rect(30,30,20,20); 
-  // player.pause();
-  // player2.play();
-
- // }
-  
-  
-  
+  if (mouseY <(button[1] + button[3])) {
+    rect(30, 30, 20, 20); 
+    player.pause();
+    player2.play();
+  }
 }
 void Mode1()
 {
   background(0);
-  
- // rect(button[0], button[1], button[2], button[3]);
-  
-  
-  
-  
+
+  rect(button[0], button[1], button[2], button[3]);
+
+
+
+
   float halfH = height / 2;
 
   strokeWeight(1);
@@ -156,7 +155,7 @@ void Mode1()
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
 
 
-   line(i, height/2 -sample, height/2 +sample, i);
+    line(i, height/2 -sample, height/2 +sample, i);
   }
 }
 void Mode2()
@@ -217,8 +216,8 @@ void Mode4()
     stroke(255, 255, 255);
     fill(0);
     c ++;
-    
-    
+
+
     ellipse(width/ 2, 256, lerpedAverage * height/2*4, lerpedAverage * height/2*4);
 
     float sum = 0;
@@ -246,7 +245,7 @@ void Mode5()
     lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
     float sample = lerpedBuffer[i] * width * 2;    
     stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
-    
+
     if ( c>= 255)
     {
       c=0;
@@ -254,12 +253,12 @@ void Mode5()
     stroke(c/2, 255/2, 255);
     fill(0);
     c ++;
-    
-    
+
+
     rectMode(CENTER);
     rect(width/ 2, 256, lerpedAverage * height*2, lerpedAverage * height*2);
-    
-    
+
+
     float sum = 0;
     for (int i1 = 0; i1 < buffer.size(); i1 ++)
     {
@@ -291,7 +290,7 @@ void Mode6()
     line(width/2 -sample/2+256, i, width/2 +sample/2+256, i);
     line(i, height/2 -sample+256, i, height/2 +sample/2+256);
     line(i, height/2 -sample-256, i, height/2 +sample/2-256);
-    
+
     line(width/2 -sample/2-128, i, width/2 +sample/2-128, i);
     line(width/2 -sample/2+128, i, width/2 +sample/2+128, i);
     line(i, height/2 -sample+128, i, height/2 +sample/2+128);
@@ -308,52 +307,56 @@ void Mode6()
     lerpedAverage = lerp(lerpedAverage, average, 0.1f);
   }
 }
+
 void Mode7()
 {
+
   background(0);
-  for(int i = 0;i < ab.size(); i++)
+
+
+  for (int i = 0; i < ab.size(); i++)
   {
-    float c = map(i,0,ab.size(),0,255);
-    stroke(c, 255,255);
+    float c = map(i, 0, ab.size(), 0, 255);
+    stroke(c, 255, 255);
     float sample = ab.get(i) * halfHeight;
-    line(i, halfHeight + sample, i, halfHeight - sample); 
-     line(i, 0 + sample, i, 0 - sample); 
-     line(i, height + sample, i, height - sample); 
   }
-  
+
   fft.window(FFT.HAMMING);
   fft.forward(ab);
+}
 
-  
 
 
-  }
+
+
+
+
 
 void Mode8()
 {
   background(0);
-  for(int i = 0;i < ab.size(); i++)
+  for (int i = 0; i < ab.size(); i++)
   {
-    float c = map(i,0,ab.size(),0,255);
-    stroke(c, 255,255);
+    float c = map(i, 0, ab.size(), 0, 255);
+    stroke(c, 255, 255);
     float sample = ab.get(i) * halfHeight;
-    line(i, halfHeight + sample, i, halfHeight - sample); 
+    line(i, halfHeight + sample, i, halfHeight - sample);
   }
-  
+
   fft.window(FFT.HAMMING);
   fft.forward(ab);
   int highestBin =-1;
   float highest = 0;
-  
-  for(int i = 0; i < fft.specSize(); i ++)
+
+  for (int i = 0; i < fft.specSize(); i ++)
   {
-     float c = map(i,0,ab.size(),0,255);
-    stroke(c, 255,255);
-    line(i,0,i, fft.getBand(i) * halfHeight);
+    float c = map(i, 0, ab.size(), 0, 255);
+    stroke(c, 255, 255);
+    line(i, 0, i, fft.getBand(i) * halfHeight);
     if (fft.getBand(i) > highest)
     {
-     highest = fft.getBand(i); 
-     highestBin = i;
+      highest = fft.getBand(i); 
+      highestBin = i;
     }
   }
   noStroke();
@@ -361,42 +364,32 @@ void Mode8()
   lerpedFreq = lerp(lerpedFreq, freq, 0.1f);
   float y = map(lerpedFreq, 900, 2100, height, 0);
   ellipse(100, y, 50, 50);
-  }
-  
-  void Mode9()
+}
+
+void Mode9()
 {
   background(0);
-  for(int i = 0;i < ab.size(); i++)
+  for (int i = 0; i < ab.size(); i++)
   {
-      stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
-      lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
-      float sample = lerpedBuffer[i] * width * 2;    
-      stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
-     
-     noStroke();  
-  translate(width/2, height/2);
-  rotate(0.1);
- fill( random(255)/10, (255), (255), random(10+sample));
- // star(0, 0, 30-sample/2, 70-sample/2, 6); 
-  star(-256, -256, 30-sample/2, 70-sample/2, 6); 
-  star(-258, -128, 30-sample/2, 70-sample/2, 6); 
-   star(-258, 128, 30-sample/2, 70-sample/2, 6); 
-   star(-258, -192, 30-sample/2, 70-sample/2, 6); 
-  star(-256, 256, 30-sample/2, 70-sample/2, 6); 
-   star(256, -256, 30-sample/2, 70-sample/2, 6); 
-   star(256, 128, 30-sample/2, 70-sample/2, 6); 
-   star(256, -128, 30-sample/2, 70-sample/2, 6); 
- 
-      
-  
-  
-  
-  
-  //lights();
- // translate(10+sample,10+sample, 0);
-  //sphere(10-sample);
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
+    float sample = lerpedBuffer[i] * width * 2;    
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+
+    noStroke();  
+    translate(width/2, height/2);
+    rotate(0.1);
+    fill( random(255)/10, (255), (255), random(10+sample));
+    // star(0, 0, 30-sample/2, 70-sample/2, 6); 
+    star(-256, -256, 30-sample/2, 70-sample/2, 6); 
+    star(-258, -128, 30-sample/2, 70-sample/2, 6); 
+    star(-258, 128, 30-sample/2, 70-sample/2, 6); 
+    star(-258, -192, 30-sample/2, 70-sample/2, 6); 
+    star(-256, 256, 30-sample/2, 70-sample/2, 6); 
+    star(256, -256, 30-sample/2, 70-sample/2, 6); 
+    star(256, 128, 30-sample/2, 70-sample/2, 6); 
+    star(256, -128, 30-sample/2, 70-sample/2, 6);
   }
-  
 }
 void star(float x, float y, float radius1, float radius2, int npoints) {
   float angle = TWO_PI / npoints;
@@ -412,7 +405,7 @@ void star(float x, float y, float radius1, float radius2, int npoints) {
     endShape(CLOSE);
   }
 }
-  
+
 
 void keyPressed()
 {
